@@ -6,6 +6,8 @@ import NextTopLoader from 'nextjs-toploader';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { auth } from '@/auth';
+import Header from '@/components/layout/header';
+import BottomBar from '@/components/layout/bottom-bar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,8 +27,10 @@ export default async function RootLayout({
       <body className={`${inter.className} overflow-hidden`}>
         <NextTopLoader showSpinner={false} />
         <Providers session={session}>
+          <Header />
           <Toaster />
           {children}
+          <BottomBar />
         </Providers>
       </body>
     </html>

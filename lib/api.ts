@@ -16,7 +16,6 @@ export const callApi = async (url: string, body: any, method = HTTP_METHOD.POST)
       {
         headers: {
           "Content-Type": "application/json",
-          // "Authorization": `Bearer ${cookies().get("auth")}`,
         }, method, data: body,
         withCredentials: true,
       });

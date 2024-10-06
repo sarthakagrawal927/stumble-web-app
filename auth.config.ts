@@ -19,17 +19,19 @@ const authOptions = {
   callbacks: {
     async signIn({ user, account }: {user: User | BackendUser, account: Account | null}): Promise<boolean> {
       if (!account?.id_token) return false;
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/google_auth`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          token: account.id_token,
+          jwt: account.id_token,
+          userIdentifier: account.providerAccountId,
+          authCode: account.access_token
         }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        (user as BackendUser).backendToken = data.token;
+        (user as BackendUser).backendToken = data?.data.authToken;
         return true;
       } else {
         return false;

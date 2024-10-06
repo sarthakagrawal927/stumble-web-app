@@ -14,11 +14,13 @@ export const baseServerSideFetch = async<T>(endpoint: string, bodyParams?: { [ke
     const cookieHeader = cookieStore.getAll()
       .map(cookie => `${cookie.name}=${cookie.value}`)
       .join('; ');
+    const aCookie = cookieStore.getAll().find(cookie => cookie.name === 'auth');
     const data = await fetch(`${baseUrl}${endpoint}`, {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Cookie': cookieHeader
+        'Cookie': cookieHeader,
+        "Authorization": `${aCookie?.value}`
       },
       body: JSON.stringify(bodyParams),
       cache: 'no-store'
@@ -27,7 +29,7 @@ export const baseServerSideFetch = async<T>(endpoint: string, bodyParams?: { [ke
       return {err: new Error("Unauthorized"), data: null};
     }
     const json = await data.json()
-    return {data: json as T, err: null}
+    return {data: json.data as T, err: null}
   } catch (err) {
     return {data: null, err: err as Error}
   }

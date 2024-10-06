@@ -1,3 +1,4 @@
+import BottomBar from '@/components/layout/bottom-bar';
 import Header from '@/components/layout/header';
 import Sidebar from '@/components/layout/sidebar';
 import type { Metadata } from 'next';
@@ -19,6 +20,7 @@ export default function DashboardLayout({
         <Sidebar />
         <main className="flex-1 overflow-hidden pt-16">{children}</main>
       </div>
+      <BottomBar />
     </>
   );
 }

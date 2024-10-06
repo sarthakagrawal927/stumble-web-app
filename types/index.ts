@@ -31,9 +31,12 @@ export type MainNavItem = NavItemWithOptionalChildren;
 
 export type SidebarNavItem = NavItemWithChildren;
 
-export type Product = {
-  id: string;
+export type UserSwipeCard = {
+  id: number;
   name: string;
-  rich_text: string;
-  price: number;
-};
+  age: number;
+  photos: string[];
+  gender: number;
+  photo_verification_status: number;
+  conversation_starter: string;
+}
